@@ -21,8 +21,8 @@ script: ./assets/js/index.js
             </div>
           </div>
           <div class="card-footer d-flex justify-content-between">
-            <button class="btn btn-secondary">預覽房型</button>
-            <button class="btn btn-primary">預定房型</button>
+            <button type="button" class="btn btn-secondary">預覽房型</button>
+            <button type="button" class="btn btn-primary" :value="item.id"  @click="addShopping(item.id)">預定房型</button>
           </div>
         </div>
       </li>
@@ -67,7 +67,7 @@ script: ./assets/js/index.js
               <textarea name="remarks" id="inputRemarks" cols="30" rows="10" class="form-control"></textarea>
             </div>
             <div class="d-flex justify-content-center mb-5">
-              <input type="submit" class="btn btn-primary btn-lg" value="送出" @click="order" :disabled="invalid">
+              <input type="submit" class="btn btn-primary btn-lg" value="送出"  :disabled="invalid">
             </div>
           </form>
         </validation-observer>
