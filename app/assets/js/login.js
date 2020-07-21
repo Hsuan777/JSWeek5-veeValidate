@@ -1,14 +1,14 @@
 new Vue({
-  el: `#app`,
+  el: "#app",
   data: {
     hexAPI: {
-      personID: `85a8cd22-1b7d-43af-9b5a-5aa679129559`,
-      apiPath: `https://course-ec-api.hexschool.io/api/`,
+      personID: "85a8cd22-1b7d-43af-9b5a-5aa679129559",
+      apiPath: "https://course-ec-api.hexschool.io/api/",
       data: [],
     },
     user: {
-      email: ``,
-      password: ``,
+      email: "",
+      password: "",
     },
   },
   methods:{

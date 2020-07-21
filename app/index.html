@@ -1,35 +1,75 @@
 ---
-title: login
+title: Index
 layout: ./app/layout.ejs
 engine: ejs
-current: login
-script: ./assets/js/login.js
+current: index
+script: ./assets/js/index.js
 ---
-<main id="app">
-  <h2 class="text-center my-5">Login</h2>
+<main id="productList">
   <section class="container">
+    <h2 class="mt-2 mb-5 font-weight-bold text-primary">房型列表</h2>
+    <ul class="list__products row list-unstyled">
+      <li class="col-4" v-for="(item, index) in hexAPI.data" :key="index">
+        <div class="card mb-3">
+          <img :src="item.imageUrl[0]" class="img-fluid rounded-top">
+          <div class="card-body">
+            <h5 class="font-weight-bold">{{item.title}}</h5> 
+            <p>{{item.content}}</p>
+            <div class="d-flex justify-content-between">
+              <p class="mb-0">原價 : <del>{{item.origin_price}}</del> </p>
+              <p class="mb-0">早鳥 : {{item.price}}</p>
+            </div>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <button class="btn btn-secondary">預覽房型</button>
+            <button class="btn btn-primary">預定房型</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="container">
+    <h2 class="mt-2 mb-5 font-weight-bold text-primary">預定人資料</h2>
     <div class="row">
-      <div class="col-3 mx-auto">
+      <div class="col-6 mx-auto">
         <validation-observer v-slot="{ invalid }">
-          <form action="" @submit.prevent="submitForm" class="mb-5">
-            <!-- 為什麼空值會通過 -->
-            <validation-provider rules="email|required" v-slot="{ errors, classes }" tag="div" class="form-group">
-              <label for="inputEmail" class="sr-only">Email address</label>
-              <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" v-model="user.email" :class="classes">
-              <p class="invalid-feedback">{{ errors[0] }}</p>
-            </validation-provider>
-            <!-- min_value:12 為甚麼沒有作用 -->
+          <form @submit.prevent="submitForm">
             <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
-              <label for="inputPassword" class="sr-only">Password</label>
-              <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password"
-                v-model="user.password"  :class="classes">
-              <p class="invalid-feedback">{{ errors[0] }}</p>
+              <label for="inputName" class="h3 font-weight-bold">姓名</label>
+              <input type="text" id="inputName" name="Name" placeholder="預定人姓名" class="form-control form-control-lg" :class="classes"  v-model="person.name">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
             </validation-provider>
-            <div class="d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary mb-2" @click="login" :disabled="invalid">登入</button>
+            <validation-provider rules="email|required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputEmail"  class="h3 font-weight-bold">信箱</label>
+              <input type="email" id="inputEmail" name="Email" placeholder="預定人信箱" class="form-control form-control-lg" :class="classes" v-model="person.email">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <validation-provider rules="digits:10|required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputNumber" class="h3 font-weight-bold">電話</label>
+              <input type="number" id="inputNumber" name="Phone" placeholder="預定人電話" class="form-control form-control-lg" :class="classes" v-model="person.phone">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputAddress" class="h3 font-weight-bold">地址</label>
+              <input type="text" id="inputAddress" name="Address" placeholder="預定人地址" class="form-control form-control-lg" :class="classes" v-model="person.address">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <div class="form-group">
+              <label for="selectPay" class="h3 font-weight-bold">付款方式</label>
+              <select name="selectPay" id="selectPay" class="form-control form-control-lg">
+                <option value="" disabled>請選擇付款方式</option>
+                <option :value="item" v-for="item in selectPay">{{item}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inputRemarks" class="h3 font-weight-bold">留言</label>
+              <textarea name="remarks" id="inputRemarks" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+              <input type="submit" class="btn btn-primary btn-lg" value="送出" @click="order" :disabled="invalid">
             </div>
           </form>
-
         </validation-observer>
       </div>
     </div>
