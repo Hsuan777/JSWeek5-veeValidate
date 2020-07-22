@@ -1,0 +1,59 @@
+---
+title: Index
+layout: ./app/layout.ejs
+engine: ejs
+current: index
+script: ./assets/js/payment.js
+---
+
+<main id="payment">
+  <section class="container">
+    <h2 id="peopleData" class="mt-2 mb-5 font-weight-bold text-primary">預定人資料</h2>
+    <div class="row">
+      <div class="col-6 mx-auto">
+        <validation-observer v-slot="{ invalid }">
+          <form @submit.prevent="submitForm">
+            <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputName" class="h3 font-weight-bold">姓名</label>
+              <input type="text" id="inputName" name="Name" placeholder="預定人姓名" class="form-control form-control-lg"
+                :class="classes" v-model="person.name">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <validation-provider rules="email|required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputEmail" class="h3 font-weight-bold">信箱</label>
+              <input type="email" id="inputEmail" name="Email" placeholder="預定人信箱" class="form-control form-control-lg"
+                :class="classes" v-model="person.email">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <validation-provider rules="digits:10|required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputTel" class="h3 font-weight-bold">電話</label>
+              <input type="tel" id="inputTel" name="Phone" placeholder="預定人電話" class="form-control form-control-lg"
+                :class="classes" v-model="person.phone">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputAddress" class="h3 font-weight-bold">地址</label>
+              <input type="text" id="inputAddress" name="Address" placeholder="預定人地址"
+                class="form-control form-control-lg" :class="classes" v-model="person.address">
+              <small class="invalid-feedback">{{ errors[0] }}</small>
+            </validation-provider>
+            <div class="form-group">
+              <label for="selectPay" class="h3 font-weight-bold">付款方式</label>
+              <select name="selectPay" id="selectPay" class="form-control form-control-lg">
+                <option value="" disabled>請選擇付款方式</option>
+                <option :value="item" v-for="item in selectPay">{{item}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inputRemarks" class="h3 font-weight-bold">留言</label>
+              <textarea name="remarks" id="inputRemarks" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="d-flex justify-content-center mb-5">
+              <input type="submit" class="btn btn-primary btn-lg" value="送出" :disabled="invalid">
+            </div>
+          </form>
+        </validation-observer>
+      </div>
+    </div>
+  </section>
+</main>

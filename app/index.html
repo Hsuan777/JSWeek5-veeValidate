@@ -7,13 +7,18 @@ script: ./assets/js/index.js
 ---
 <main id="productList">
   <section class="container">
-    <h2 class="mt-2 mb-5 font-weight-bold text-primary">房型列表</h2>
+    <h2 class="mt-2 mb-5 font-weight-bold text-primary">房間列表</h2>
+    <button type="button" class="shoppingTop btn btn-secondary btn-lg text-decoration-none d-flex p-2"
+      data-toggle="modal" data-target="#shoppingModal">
+      <span class="material-icons">shopping_cart</span>
+      <sup class="text-danger ml-n1">{{ hexAPI.dataShopping.length }}</sup>
+    </button>
     <ul class="list__products row list-unstyled">
       <li class="col-4" v-for="(item, index) in hexAPI.data" :key="index">
         <div class="card mb-3">
           <img :src="item.imageUrl[0]" class="img-fluid rounded-top">
           <div class="card-body">
-            <h5 class="font-weight-bold">{{item.title}}</h5> 
+            <h5 class="font-weight-bold">{{item.title}}</h5>
             <p>{{item.content}}</p>
             <div class="d-flex justify-content-between">
               <p class="mb-0">原價 : <del>{{item.origin_price}}</del> </p>
@@ -22,55 +27,52 @@ script: ./assets/js/index.js
           </div>
           <div class="card-footer d-flex justify-content-between">
             <button type="button" class="btn btn-secondary">預覽房型</button>
-            <button type="button" class="btn btn-primary" :value="item.id"  @click="addShopping(item.id)">預定房型</button>
+            <button type="button" class="btn btn-primary" @click="addShopping(item.id)">預定房間</button>
           </div>
         </div>
       </li>
     </ul>
-  </section>
 
-  <section class="container">
-    <h2 class="mt-2 mb-5 font-weight-bold text-primary">預定人資料</h2>
-    <div class="row">
-      <div class="col-6 mx-auto">
-        <validation-observer v-slot="{ invalid }">
-          <form @submit.prevent="submitForm">
-            <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
-              <label for="inputName" class="h3 font-weight-bold">姓名</label>
-              <input type="text" id="inputName" name="Name" placeholder="預定人姓名" class="form-control form-control-lg" :class="classes"  v-model="person.name">
-              <small class="invalid-feedback">{{ errors[0] }}</small>
-            </validation-provider>
-            <validation-provider rules="email|required" v-slot="{ errors, classes }" tag="div" class="form-group">
-              <label for="inputEmail"  class="h3 font-weight-bold">信箱</label>
-              <input type="email" id="inputEmail" name="Email" placeholder="預定人信箱" class="form-control form-control-lg" :class="classes" v-model="person.email">
-              <small class="invalid-feedback">{{ errors[0] }}</small>
-            </validation-provider>
-            <validation-provider rules="digits:10|required" v-slot="{ errors, classes }" tag="div" class="form-group">
-              <label for="inputNumber" class="h3 font-weight-bold">電話</label>
-              <input type="number" id="inputNumber" name="Phone" placeholder="預定人電話" class="form-control form-control-lg" :class="classes" v-model="person.phone">
-              <small class="invalid-feedback">{{ errors[0] }}</small>
-            </validation-provider>
-            <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
-              <label for="inputAddress" class="h3 font-weight-bold">地址</label>
-              <input type="text" id="inputAddress" name="Address" placeholder="預定人地址" class="form-control form-control-lg" :class="classes" v-model="person.address">
-              <small class="invalid-feedback">{{ errors[0] }}</small>
-            </validation-provider>
-            <div class="form-group">
-              <label for="selectPay" class="h3 font-weight-bold">付款方式</label>
-              <select name="selectPay" id="selectPay" class="form-control form-control-lg">
-                <option value="" disabled>請選擇付款方式</option>
-                <option :value="item" v-for="item in selectPay">{{item}}</option>
-              </select>
+    <!-- shopping Modal -->
+    <div class="modal fade" id="shoppingModal" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-secondary">
+            <h5 class="modal-title font-weight-bold">購物車列表</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>房間名稱</th>
+                  <th class="text-right">價格</th>
+                  <th class="text-right">間數</th>
+                  <th class="text-center">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  v-for="(item, index) in hexAPI.dataShopping" :key="index">
+                  <td>{{ item.product.title }}</td>
+                  <td class="text-right">{{ item.product.price }}</td>
+                  <td class="text-right">{{ item.quantity }}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-warning" @click="deleteShopping( item.product.id )">刪除</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <hr>
+            <h3 class="text-right mr-4">總計金額 : NT.{{ shopping.moneyTotal }}</h3>
+            <div class="modal-footer d-flex justify-content-around">
+              <button type="button" class="btn btn-warning" data-dismiss="modal" @click="deleteAll">Clean</button>
+              <a href="payment.html" class="btn btn-primary">結帳</a>
             </div>
-            <div class="form-group">
-              <label for="inputRemarks" class="h3 font-weight-bold">留言</label>
-              <textarea name="remarks" id="inputRemarks" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <div class="d-flex justify-content-center mb-5">
-              <input type="submit" class="btn btn-primary btn-lg" value="送出"  :disabled="invalid">
-            </div>
-          </form>
-        </validation-observer>
+          </div>
+        </div>
       </div>
     </div>
   </section>
