@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <title><%- title %></title>
+  <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css" rel="stylesheet">
+
   <link rel="stylesheet" href="assets/style/all.css">
 </head>
 
@@ -62,10 +64,12 @@
 
   <!-- Vue 第三方插件 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
 
   <!-- <script  src="assets/js/all.js"></script> -->
   <script type="module">
     import * as validate from './assets/js/validate.js';
+    import * as loading from './assets/js/loading.js';
     import * as all from '<%- script %>';
   </script>
 

@@ -19,23 +19,28 @@ new Vue({
     },
     shopping:{
       moneyTotal:0,
-    }
+    },
+    isLoading: false,
   },
   methods: {
     getData() {
       let vm = this;
+      vm.isLoading = true;
       axios.get(`https://course-ec-api.hexschool.io/api/${vm.hexAPI.personID}/ec/products`)
         .then((response) => {
           vm.hexAPI.data = response.data.data;
+          vm.isLoading = false;
         })
     },
     addShopping(id) {
       let vm = this;
+      vm.isLoading = true;
       vm.temporary.product = id;
       axios.post(`https://course-ec-api.hexschool.io/api/${vm.hexAPI.personID}/ec/shopping`, vm.temporary)
         .then(() => {
           console.log(`加入成功`);
           vm.getShopping();
+          vm.isLoading = false;
         })
     },
     getShopping() {
@@ -50,27 +55,31 @@ new Vue({
           })
           vm.shopping.moneyTotal = total;
         });
-      
-      
     },
     deleteShopping(delID) {
       let vm = this;
+      vm.isLoading = true;
       vm.hexAPI.dataShopping.forEach((item) => {
         if (delID === item.product.id) {
           axios
             .delete(`https://course-ec-api.hexschool.io/api/${vm.hexAPI.personID}/ec/shopping/${delID}`)
             .then(() => {
               vm.getShopping();
+              vm.isLoading = false;
             });
         }
       })
     },
     deleteAll() {
       let vm = this;
+      vm.isLoading = true;
       axios
         .delete(`https://course-ec-api.hexschool.io/api/${vm.hexAPI.personID}/ec/shopping/all/product`)
         .then(() => {
           vm.getShopping();
+          vm.isLoading = false;
+          $('#shoppingModal').modal('hide');
+          // this.$refs.shoppingModal('hide');
         });
     }
   },

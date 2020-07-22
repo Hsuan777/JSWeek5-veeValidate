@@ -7,6 +7,7 @@ script: ./assets/js/index.js
 ---
 <main id="productList">
   <section class="container">
+    <loading :active.sync="isLoading"></loading>
     <h2 class="mt-2 mb-5 font-weight-bold text-primary">房間列表</h2>
     <button type="button" class="shoppingTop btn btn-secondary btn-lg text-decoration-none d-flex p-2"
       data-toggle="modal" data-target="#shoppingModal">
@@ -34,7 +35,7 @@ script: ./assets/js/index.js
     </ul>
 
     <!-- shopping Modal -->
-    <div class="modal fade" id="shoppingModal" tabindex="-1" role="dialog" aria-labelledby="loginModal"
+    <div class="modal fade" id="shoppingModal"  ref="shoppingModal" tabindex="-1" role="dialog" aria-labelledby="loginModal"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -68,7 +69,7 @@ script: ./assets/js/index.js
             <hr>
             <h3 class="text-right mr-4">總計金額 : NT.{{ shopping.moneyTotal }}</h3>
             <div class="modal-footer d-flex justify-content-around">
-              <button type="button" class="btn btn-warning" data-dismiss="modal" @click="deleteAll">Clean</button>
+              <button type="button" class="btn btn-warning" @click="deleteAll">Clean</button>
               <a href="payment.html" class="btn btn-primary">結帳</a>
             </div>
           </div>

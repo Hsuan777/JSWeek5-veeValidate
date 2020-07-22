@@ -1,0 +1,2 @@
+Vue.component(`loading`, VueLoading);
+
