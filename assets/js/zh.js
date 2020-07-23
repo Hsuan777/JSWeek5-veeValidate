@@ -5,8 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _default = {
-  "code": "zh_TW",
-  "messages": {
+  code: "zh_TW",
+  messages: {
     "alpha": "{_field_} 須以英文組成",
     "alpha_dash": "{_field_} 須以英數、斜線及底線組成",
     "alpha_num": "{_field_} 須以英數組成",
@@ -35,4 +35,4 @@ var _default = {
   }
 };
 exports["default"] = _default;
-//# sourceMappingURL=zh_TW.js.map
+//# sourceMappingURL=zh.js.map
