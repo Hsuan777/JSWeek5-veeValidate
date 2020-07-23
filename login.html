@@ -10,7 +10,7 @@
   <!-- Google icon -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <title><%- title %></title>
+  <title>login</title>
   <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/style/all.css">
@@ -42,7 +42,35 @@
     </div>
   </nav>
 
-  <%- contents %>
+  <main id="app">
+  <h2 class="text-center my-5">Login</h2>
+  <section class="container">
+    <div class="row">
+      <div class="col-3 mx-auto">
+        <validation-observer v-slot="{ invalid }">
+          <form @submit.prevent="submitForm" class="mb-5">
+            <!-- 為什麼空值會通過 -->
+            <validation-provider rules="email|required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputEmail" class="sr-only">Email address</label>
+              <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" v-model="user.email" :class="classes">
+              <p class="invalid-feedback">{{ errors[0] }}</p>
+            </validation-provider>
+            <validation-provider rules="min:6|required" v-slot="{ errors, classes }" tag="div" class="form-group">
+              <label for="inputPassword" class="sr-only">Password</label>
+              <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password"
+                v-model="user.password"  :class="classes">
+              <p class="invalid-feedback">{{ errors[0] }}</p>
+            </validation-provider>
+            <div class="d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary mb-2" @click="login" :disabled="invalid">登入</button>
+            </div>
+          </form>
+        </validation-observer>
+        
+      </div>
+    </div>
+  </section>
+</main>
 
   <footer class="bg-secondary py-2">
     <p class="mb-0 text-center">- Practice Vue -</p>
@@ -72,7 +100,7 @@
   <script type="module">
     import * as validate from './assets/js/validate.js';
     import * as loading from './assets/js/loading.js';
-    import * as all from '<%- script %>';
+    import * as all from './assets/js/login.js';
   </script>
 
  

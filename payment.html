@@ -1,11 +1,48 @@
----
-title: Index
-layout: ./app/layout.ejs
-engine: ejs
-current: index
-script: ./assets/js/payment.js
----
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="robots" content="HTML，CSS，RWD，前端，線上課程，網頁設計">
+
+  <!-- Google icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>Index</title>
+  <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style/all.css">
+</head>
+
+<body>
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+    
+      <a class="navbar-brand text-primary" href="index.html">HexHotal</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">預定房間</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="products.html">後台管理</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  
 <main id="payment">
   <section class="container">
     <loading :active.sync="isLoading"></loading>
@@ -82,3 +119,41 @@ script: ./assets/js/payment.js
     </div>
   </section>
 </main>
+
+  <footer class="bg-secondary py-2">
+    <p class="mb-0 text-center">- Practice Vue -</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+  <!-- fontawesome -->
+  <script src="https://kit.fontawesome.com/74aada8adf.js" crossorigin="anonymous"></script>
+  <!-- axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!-- vue -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.js"></script>
+
+  <!-- Vue 第三方插件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/3.3.0/vee-validate.full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
+
+  <script type="module">
+    import * as validate from './assets/js/validate.js';
+    import * as loading from './assets/js/loading.js';
+    import * as all from './assets/js/payment.js';
+  </script>
+
+ 
+  
+
+</body>
+
+</html>

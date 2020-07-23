@@ -1,15 +1,13 @@
+"use strict";
+
 // import zh_TW from 'zh_TW.js'; //不知為什麼無法要求
-
 Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
+Vue.component('ValidationObserver', VeeValidate.ValidationObserver); // VeeValidate.localize('tw', zh_TW);
 
-Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
-
-// VeeValidate.localize('tw', zh_TW);
 VeeValidate.localize({
   // en:{
-
   // },
-  en:{
+  en: {
     "messages": {
       "alpha": "{_field_} 須以英文組成",
       "alpha_dash": "{_field_} 須以英數、斜線及底線組成",
@@ -40,11 +38,10 @@ VeeValidate.localize({
     }
   }
 });
-
-
 VeeValidate.configure({
   classes: {
     valid: 'is-valid',
-    invalid: 'is-invalid',
+    invalid: 'is-invalid'
   }
-})
+});
+//# sourceMappingURL=validate.js.map

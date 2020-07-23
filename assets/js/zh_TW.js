@@ -1,4 +1,10 @@
-export default{
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _default = {
   "code": "zh_TW",
   "messages": {
     "alpha": "{_field_} 須以英文組成",
@@ -27,5 +33,6 @@ export default{
     "required_if": "{_field_} 為必填",
     "size": "{_field_} 的檔案須小於 {size}KB"
   }
-}
-
+};
+exports["default"] = _default;
+//# sourceMappingURL=zh_TW.js.map

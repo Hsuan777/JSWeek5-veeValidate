@@ -1,0 +1,1 @@
+{"version":3,"sources":["loading.js"],"names":["Vue","component","VueLoading"],"mappings":";;AAAAA,GAAG,CAACC,SAAJ,YAAyBC,UAAzB","sourcesContent":["Vue.component(`loading`, VueLoading);\r\n\r\n"],"file":"loading.js"}
