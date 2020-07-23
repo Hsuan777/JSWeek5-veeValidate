@@ -37,3 +37,9 @@ h1, h2, h3, h4{
   right: 110px;
   z-index: 9;
 }
+.product{
+  &__img{
+    width: 160px;
+    height: 90px;
+  }
+}

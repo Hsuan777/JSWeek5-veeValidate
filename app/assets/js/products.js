@@ -167,7 +167,7 @@ let app = new Vue({
     // 取出 token 名稱，若為空值則跳回 login.html，防止直接進 products.html
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     if( token === ``){
-      window.location = "index.html";
+      window.location = "login.html";
     }
     this.getData();
   },

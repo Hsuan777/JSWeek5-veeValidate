@@ -13,5 +13,29 @@ new Vue({
       phone: "",
       address: "",
     },
+    shopping:{
+      data:[],
+      moneyTotal:0,
+    },
+    isLoading:false,
   },
+  methods: {
+    getShopping() {
+      let vm = this;
+      vm.isLoading = true;
+      axios.get(`https://course-ec-api.hexschool.io/api/${vm.hexAPI.personID}/ec/shopping`)
+        .then((response) => {
+          vm.shopping.data = response.data.data;
+          let total = 0;
+          vm.shopping.data.forEach(item=>{
+            total += item.product.price;
+          })
+          vm.shopping.moneyTotal = total;
+          vm.isLoading = false;
+        });
+    },
+  },
+  created(){
+    this.getShopping();
+  }
 })

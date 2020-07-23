@@ -18,8 +18,7 @@ script: ./assets/js/login.js
               <input type="email" id="inputEmail" name="Email" class="form-control" placeholder="Email address" v-model="user.email" :class="classes">
               <p class="invalid-feedback">{{ errors[0] }}</p>
             </validation-provider>
-            <!-- min_value:12 為甚麼沒有作用 -->
-            <validation-provider rules="required" v-slot="{ errors, classes }" tag="div" class="form-group">
+            <validation-provider rules="min:6|required" v-slot="{ errors, classes }" tag="div" class="form-group">
               <label for="inputPassword" class="sr-only">Password</label>
               <input type="password" id="inputPassword" name="Password" class="form-control" placeholder="Password"
                 v-model="user.password"  :class="classes">

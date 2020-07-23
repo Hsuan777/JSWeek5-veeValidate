@@ -12,7 +12,7 @@ script: ./assets/js/index.js
     <button type="button" class="shoppingTop btn btn-secondary btn-lg text-decoration-none d-flex p-2"
       data-toggle="modal" data-target="#shoppingModal">
       <span class="material-icons">shopping_cart</span>
-      <sup class="text-danger ml-n1">{{ hexAPI.dataShopping.length }}</sup>
+      <sup class="text-danger ml-n1">{{ shopping.data.length }}</sup>
     </button>
     <ul class="list__products row list-unstyled">
       <li class="col-4" v-for="(item, index) in hexAPI.data" :key="index">
@@ -46,31 +46,31 @@ script: ./assets/js/index.js
             </button>
           </div>
           <div class="modal-body">
-            <table class="table">
+            <table class="table table-borderless">
               <thead>
                 <tr>
                   <th>房間名稱</th>
                   <th class="text-right">價格</th>
-                  <th class="text-right">間數</th>
+                  <th class="text-center">間數</th>
                   <th class="text-center">操作</th>
                 </tr>
               </thead>
               <tbody>
-                <tr  v-for="(item, index) in hexAPI.dataShopping" :key="index">
-                  <td>{{ item.product.title }}</td>
-                  <td class="text-right">{{ item.product.price }}</td>
-                  <td class="text-right">{{ item.quantity }}</td>
-                  <td class="text-center">
-                    <button type="button" class="btn btn-warning" @click="deleteShopping( item.product.id )">刪除</button>
+                <tr  v-for="(item, index) in shopping.data" :key="index" class="border-top">
+                  <td class="align-middle">{{ item.product.title }}</td>
+                  <td class="align-middle text-right">{{ item.product.price }}</td>
+                  <td class="align-middle text-center">{{ item.quantity }}</td>
+                  <td class="align-middle text-center">
+                    <button type="button" class="btn btn-secondary" @click="deleteShopping( item.product.id )">刪除</button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <hr>
+            
             <h3 class="text-right mr-4">總計金額 : NT.{{ shopping.moneyTotal }}</h3>
-            <div class="modal-footer d-flex justify-content-around">
-              <button type="button" class="btn btn-warning" @click="deleteAll">Clean</button>
-              <a href="payment.html" class="btn btn-primary">結帳</a>
+            <div class="modal-footer d-flex justify-content-around border-0">
+              <button type="button" class="btn btn-primary" @click="deleteAll">Clean</button>
+              <a href="" class="btn btn-info" @click.prevent="pay">結帳</a>
             </div>
           </div>
         </div>
