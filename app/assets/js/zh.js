@@ -1,4 +1,4 @@
-let zh_TW={
+export default{
   code: "zh_TW",
   messages: {
     "alpha": "{_field_} 須以英文組成",
