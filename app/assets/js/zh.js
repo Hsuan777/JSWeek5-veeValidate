@@ -1,6 +1,6 @@
-export default{
-  "code": "zh_TW",
-  "messages": {
+let zh_TW={
+  code: "zh_TW",
+  messages: {
     "alpha": "{_field_} 須以英文組成",
     "alpha_dash": "{_field_} 須以英數、斜線及底線組成",
     "alpha_num": "{_field_} 須以英數組成",

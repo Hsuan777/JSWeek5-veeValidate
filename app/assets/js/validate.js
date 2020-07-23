@@ -1,10 +1,11 @@
-// import zh_TW from 'zh_TW.js'; //不知為什麼無法要求
+// import zh_TW from 'zh.js'; // require is not defined
 
 Vue.component('ValidationProvider', VeeValidate.ValidationProvider);
 
 Vue.component('ValidationObserver', VeeValidate.ValidationObserver);
 
 // VeeValidate.localize('tw', zh_TW);
+
 VeeValidate.localize({
   // en:{
 
@@ -47,4 +48,5 @@ VeeValidate.configure({
     valid: 'is-valid',
     invalid: 'is-invalid',
   }
-})
+});
+
