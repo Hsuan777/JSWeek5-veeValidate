@@ -34,14 +34,14 @@ Vue.component(`pagination`, {
   // props: [`pages`],
   props: {
     // pages:Object, //直接指定型別
-    pages:{
-      type:Object,
+    pages: {
+      type: Object,
       // validator:,
       // default:``,
     }
   },
-  methods:{
-    emitPages(item){
+  methods: {
+    emitPages(item) {
       this.$emit(`emit-pages`, item);
     },
   },
@@ -66,8 +66,8 @@ let app = new Vue({
       apiPath: `https://course-ec-api.hexschool.io/api/`,
       data: [],
     },
-    pagination:{},
-    temporary: [],
+    pagination: {},
+    temporary: {},
   },
   methods: {
     // 功能類 //
@@ -77,7 +77,7 @@ let app = new Vue({
       document.cookie = `hexToken=; expires=; path=/`;
       this.hexAPI.data = [];
       this.hexAPI.token = ``,
-      window.location = "index.html";
+        window.location = "index.html";
     },
     /* 取得遠端 API資料 */
     // 預設為 1
@@ -89,10 +89,11 @@ let app = new Vue({
       axios
         // 原本是 products ->最終結果是取得所有資料
         // 改成 products?page=${page} -> 由後端給第一頁資料
-        .get(`${vm.hexAPI.apiPath}${vm.hexAPI.personID}/admin/ec/products?page=${page}`) 
+        .get(`${vm.hexAPI.apiPath}${vm.hexAPI.personID}/admin/ec/products?page=${page}`)
         .then((res) => {
           // 取得該頁資料
           vm.hexAPI.data = res.data.data;
+
           // 取得分頁資訊
           vm.pagination = res.data.meta.pagination;
         });
@@ -116,7 +117,17 @@ let app = new Vue({
     /* 複製資料 */
     // 將 v-for所取出的 item放入暫存
     copyData(item) {
-      this.temporary = Object.assign({}, item);
+      let vm = this;
+      // TODO:會有非同步的問題，造成點擊時沒讀到資料
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      axios
+        .get(`${this.hexAPI.apiPath}${vm.hexAPI.personID}/admin/ec/product/${item.id}`)
+        .then((res) => {
+          this.temporary = Object.assign({}, res.data.data);
+        });
+
+      // this.temporary = Object.assign({}, res.data.data);
     },
     /* 修改資料 */
     updateData() {
@@ -166,14 +177,14 @@ let app = new Vue({
   created() {
     // 取出 token 名稱，若為空值則跳回 login.html，防止直接進 products.html
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-    if( token === ``){
+    if (token === ``) {
       window.location = "login.html";
     }
     this.getData();
   },
   // 元件渲染 html後，適合處理 DOM
   mounted() {
-    
+
   }
 })
 
